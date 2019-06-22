@@ -1,6 +1,9 @@
 package list
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 type LinkList struct {
 	head *node
@@ -24,11 +27,15 @@ func (list *LinkList) AddToHead(value int) {
 }
 
 
-func (list *LinkList) IterateList() {
+func (list *LinkList) IterateList() string {
+	desc := ""
 	var item *node
 	for item = list.head ; item != nil ; item = item.next {
-		fmt.Println(item.value)
+		desc += strconv.Itoa(item.value) + ","
 	}
+	fmt.Println(desc)
+
+	return desc
 }
 
 
@@ -55,7 +62,11 @@ func (list *LinkList) AddToEnd(value int) {
 
 	lastNode := list.LastNode()
 
-	lastNode.next = &newNode
+	if lastNode != nil {
+		lastNode.next = &newNode
+	} else {
+		list.head = &newNode
+	}
 }
 
 
